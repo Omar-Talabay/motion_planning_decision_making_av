@@ -7,6 +7,7 @@ CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o
  /home/workspace/nd013-c5-planning-starter/project/starter_files/planning_params.h
  /home/workspace/nd013-c5-planning-starter/project/starter_files/structs.h
  /home/workspace/nd013-c5-planning-starter/project/starter_files/utils.h
+ /home/workspace/nd013-c5-planning-starter/project/starter_files/velocity_profile_generator.h
  libcarla-install/include/carla/AtomicList.h
  libcarla-install/include/carla/AtomicSharedPtr.h
  libcarla-install/include/carla/Buffer.h

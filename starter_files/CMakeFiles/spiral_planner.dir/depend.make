@@ -6,6 +6,7 @@ CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: behavior_planner_FSM.h
 CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: planning_params.h
 CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: structs.h
 CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: utils.h
+CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: velocity_profile_generator.h
 CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: libcarla-install/include/carla/AtomicList.h
 CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: libcarla-install/include/carla/AtomicSharedPtr.h
 CMakeFiles/spiral_planner.dir/behavior_planner_FSM.cpp.o: libcarla-install/include/carla/Buffer.h

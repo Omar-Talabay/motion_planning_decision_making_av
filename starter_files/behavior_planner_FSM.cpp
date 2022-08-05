@@ -9,7 +9,7 @@
  **/
 
 #include "behavior_planner_FSM.h"
-
+#include "velocity_profile_generator.h"
 State BehaviorPlannerFSM::get_closest_waypoint_goal(
     const State& ego_state, const SharedPtr<cc::Map>& map,
     const float& lookahead_distance, bool& is_goal_junction) {
@@ -78,7 +78,10 @@ double BehaviorPlannerFSM::get_look_ahead_distance(const State& ego_state) {
   // the distance you will need to come to a stop while traveling at speed V and
   // using a comfortable deceleration.
   //auto look_ahead_distance = 1.0;  // <- Fix This
-  auto look_ahead_distance = (pow(velocity_mag, 2) / 2) * accel_mag;
+  
+  //compute the distance required for a given acceleration/deceleration
+  VelocityProfileGenerator vpg;
+  auto look_ahead_distance = vpg.calc_distance(velocity_mag, 0,  _max_accel);
   // LOG(INFO) << "Calculated look_ahead_distance: " << look_ahead_distance;
 
   look_ahead_distance =
@@ -142,8 +145,8 @@ State BehaviorPlannerFSM::state_transition(const State& ego_state, State goal,
       //goal.location.x += 1.0;  // <- Fix This
       //goal.location.y += 1.0;  // <- Fix This
 
-      goal.location.x = goal.location.x + (_stop_line_buffer * std::cos(ang));
-      goal.location.y = goal.location.y + (_stop_line_buffer * std::sin(ang));
+      goal.location.x += _stop_line_buffer * std::cos(ang);
+      goal.location.y += _stop_line_buffer * std::sin(ang);
 
       // LOG(INFO) << "BP- new STOP goal at: " << goal.location.x << ", "
       //          << goal.location.y;
@@ -188,9 +191,9 @@ State BehaviorPlannerFSM::state_transition(const State& ego_state, State goal,
     // LOG(INFO) << "Ego distance to stop line: " << distance_to_stop_sign;
 
     // TODO-use distance rather than speed: Use distance rather than speed...
-    if (utils::magnitude(ego_state.velocity) <=
-        _stop_threshold_speed) {  // -> Fix this
-      // if (distance_to_stop_sign <= P_STOP_THRESHOLD_DISTANCE) {
+    //if (utils::magnitude(ego_state.velocity) <=
+    //    _stop_threshold_speed) {  // -> Fix this
+      if (distance_to_stop_sign <= P_STOP_THRESHOLD_DISTANCE) {
       // TODO-move to STOPPED state: Now that we know we are close or at the
       // stopping point we should change state to "STOPPED"
       _active_maneuver = STOPPED;  // <- Fix This
